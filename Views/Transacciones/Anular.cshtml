@@ -1,0 +1,20 @@
+﻿@model BancaEnLinea.Models.Transaccion
+
+@{
+    ViewData["Title"] = "Anular Transacción";
+}
+
+<h2>Anular Transacción</h2>
+
+<div class="alert alert-warning">
+    <p>¿Está seguro que desea anular esta transacción?</p>
+</div>
+
+<div>
+    <form asp-action="AnularConfirmado" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger" style="margin-right: 5px;">Aceptar</button>
+        <a asp-action="Index" class="btn btn-secondary" style="margin-left: 5px;">Cancelar</a>
+    </form>
+</div>
+

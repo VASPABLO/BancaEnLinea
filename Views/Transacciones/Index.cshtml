@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BancaEnLinea.Models.Transaccion>
+
+@{
+    ViewData["Title"] = "Transacciones";
+}
+
+<h2>Transacciones</h2>
+
+<form method="get">
+    <div class="form-group">
+        <label for="Desde">Desde</label>
+        <input type="date" id="Desde" name="desde" class="form-control" value="@ViewData["Desde"]" />
+    </div>
+    <div class="form-group">
+        <label for="Hasta">Hasta</label>
+        <input type="date" id="Hasta" name="hasta" class="form-control" value="@ViewData["Hasta"]" />
+    </div>
+    <div class="form-group">
+        <label for="NombreCliente">Nombre del Cliente</label>
+        <input type="text" id="NombreCliente" name="nombreCliente" class="form-control" value="@ViewData["NombreCliente"]" />
+    </div>
+    <button style="margin:10px" type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<p>
+    <a asp-action="Crear" class="btn btn-primary">Agregar Transacción</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente Id</th>
+            <th>Tipo</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Anulada</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaccion in Model)
+        {
+            <tr>
+                <td>@transaccion.ClienteId</td>
+                <td>@transaccion.Tipo</td>
+                <td>@transaccion.Monto</td>
+                <td>@transaccion.Fecha.ToShortDateString()</td>
+                <td>@transaccion.Anulada</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@transaccion.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Borrar" asp-route-id="@transaccion.Id" class="btn btn-danger">Borrar</a>
+                    @if (!transaccion.Anulada)
+                    {
+                        <a asp-action="Anular" asp-route-id="@transaccion.Id" class="btn btn-secondary">Anular</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
