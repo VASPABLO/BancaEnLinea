@@ -1,5 +1,6 @@
 ﻿using BancaEnLinea.Models;
 using BancaEnLinea.Servicios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BancaEnLinea.Controllers
 {
+    
     public class TransaccionesController : Controller
     {
         private readonly IRepositorioTransaccion _repositorioTransaccion;
@@ -17,7 +19,7 @@ namespace BancaEnLinea.Controllers
             _repositorioTransaccion = repositorioTransaccion;
             _repositorioCliente = repositorioCliente;
         }
-
+        
         public async Task<IActionResult> Index(DateTime? desde, DateTime? hasta, string nombreCliente)
         {
             var transacciones = await _repositorioTransaccion.ObtenerConFiltrosAsync(desde, hasta, nombreCliente);

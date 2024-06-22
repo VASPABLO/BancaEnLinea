@@ -1,0 +1,56 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Inicio de sesion";
+}
+
+<h1>Inicio de sesion</h1>
+
+<div >
+    <div class="card-body">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" autocomplete="off" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" id="password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <span class="password-toggle" onclick="togglePasswordVisibility()">
+                    <img id="toggle-icon" src="https://img.icons8.com/ios-glyphs/30/000000/visible.png" alt="Show/Hide Password" />
+                </span>
+            </div>
+            
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="Recuerdame">
+                <label class="form-check-label" asp-for="Recuerdame"></label>
+            </div>
+
+            <button class="btn-primary btn mt-4">Inicia Sesion</button>
+
+
+        </form>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var toggleIcon = document.getElementById("toggle-icon");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleIcon.src = "https://img.icons8.com/ios-glyphs/30/000000/invisible.png";
+        } else {
+            passwordField.type = "password";
+            toggleIcon.src = "https://img.icons8.com/ios-glyphs/30/000000/visible.png";
+        }
+    }
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }
