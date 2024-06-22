@@ -1,4 +1,6 @@
+using BancaEnLinea.Models;
 using BancaEnLinea.Servicios;
+using Microsoft.AspNetCore.Identity;
 
 namespace BancaEnLinea
 {
@@ -14,6 +16,15 @@ namespace BancaEnLinea
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<IRepositorioCliente, RepositorioCliente>();
             builder.Services.AddTransient<IRepositorioTransaccion, RepositorioTransaccion>();
+            builder.Services.AddTransient<IRepositorioUsuarios, RepositorioUsuarios>();
+            builder.Services.AddTransient<IUserStore<Usuario>, UsuarioStore>();
+            builder.Services.AddIdentityCore<Usuario>(opciones =>
+            {
+                opciones.Password.RequireDigit = false;
+                opciones.Password.RequireLowercase = false;
+                opciones.Password.RequireUppercase = false;
+                opciones.Password.RequireNonAlphanumeric = false;
+            });
 
             var app = builder.Build();
 
